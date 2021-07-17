@@ -9,18 +9,32 @@ server.get("/pets", function (req, res) {
   });
 
 server.get("/pettypes", function(req, res) {
-  let typeData = [];
-  let uniquePets = {};
+  let Data = {cities:[], types:[], breeds:[]};
+  let uniqueTypes = {};
+  let uniqueCities ={};
+  let uniqueBreeds = {};
   for (let i = 0; i < data.length; i++) {
     let pet = data[i];
     let petType = pet.animal;
+    let petCity = pet.city;
+    let petBreed = pet.breed;
 
-    if (!uniquePets.hasOwnProperty(petType)) {
-      typeData.push(petType);
-      uniquePets[petType] = "true";
+    if (!uniqueCities.hasOwnProperty(petCity)) {
+      Data.cities.push(petCity);
+      uniqueCities[petCity] = "true";
+    }
+
+    if (!uniqueTypes.hasOwnProperty(petType)) {
+      Data.types.push(petType);
+      uniqueTypes[petType] = "true";
+    }
+
+    if (!uniqueBreeds.hasOwnProperty(petBreed)) {
+      Data.breeds.push(petBreed);
+      uniqueBreeds[petBreed] = "true";
     }
   }
-  res.json(typeData);
+  res.json(Data);
 });
 
 server.listen(4000);
